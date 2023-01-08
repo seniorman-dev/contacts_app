@@ -136,7 +136,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20 //20
           ),
           SizedBox(
-            height: 40,  //50
+            height: 50,  //50
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
@@ -320,7 +320,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 20
           ),
           SizedBox(
-            height: 40,  //50
+            height: 50,  //50
             width: double.infinity,
             child: ElevatedButton(
                 onPressed: () {
