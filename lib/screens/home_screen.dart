@@ -55,11 +55,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: 'name:',
                       prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
-                      borderRadius: BorderRadius.all(
-                        const Radius.circular(50.0),
+                        borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+                        borderRadius: BorderRadius.all(
+                          const Radius.circular(50.0),
+                        ),
                       ),
-                    ),           
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 2.0),
+                        borderRadius: BorderRadius.all(
+                          const Radius.circular(50.0),
+                        ),
+                      ),            
                   ),
             onSaved: (value) {
               name = value!;
@@ -99,6 +105,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.all(
                   const Radius.circular(50.0),
                 ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black, width: 2.0),
+                borderRadius: BorderRadius.all(
+                  const Radius.circular(50.0),
+                ),
               ),           
             ),
             onSaved: (value) {
@@ -119,10 +131,10 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           SizedBox(
-            height: 40
+            height: 25
           ),
           SizedBox(
-            height: 60,  //50
+            height: 50,  //50
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
@@ -185,9 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: 50
-          ),
+          //SizedBox(
+            //height: 10
+          //),
         ]
       )
     ),
@@ -225,12 +237,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       labelText: 'name:',
                       prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black),
                       focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
-                      borderRadius: BorderRadius.all(
-                        const Radius.circular(50.0),
+                        borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+                        borderRadius: BorderRadius.all(
+                          const Radius.circular(50.0),
+                        ),
                       ),
-                    ),           
-                  ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.black, width: 2.0),
+                        borderRadius: BorderRadius.all(
+                          const Radius.circular(50.0),
+                        ),
+                      ),           
+                    ),
             onSaved: (value) {
               name = value!;
             },
@@ -269,6 +287,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.all(
                   const Radius.circular(50.0),
                 ),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.black, width: 2.0),
+                borderRadius: BorderRadius.all(
+                  const Radius.circular(50.0),
+                ),
               ),           
             ),
             onSaved: (value) {
@@ -289,10 +313,10 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
           SizedBox(
-            height: 40
+            height: 25
           ),
           SizedBox(
-            height: 60,  //50
+            height: 50,  //50
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
@@ -335,9 +359,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          SizedBox(
-            height: 50
-          ),
+          //SizedBox(
+            //height: 50
+          //),
         ]
       )
     ),
@@ -430,7 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   trailing: SizedBox(
                     height: 40,
-                    width: 85,  //120, 80
+                    width: 100,  //120, 
                     child: Row(
                       //mainAxisAlignment: MainAxisAlignment.end,
                       children: [
