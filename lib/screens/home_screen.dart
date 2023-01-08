@@ -35,47 +35,49 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             content: Form(
               key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    autofocus: true,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    //controller: nameController,
-                    initialValue: data['name'],  //name,
-                    autocorrect: true,
-                    keyboardType: TextInputType.name,
-                    enableSuggestions: true,
-                    enableInteractiveSelection: true,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      //labelStyle: ,
-                      //hintStyle: ,
-                      labelStyle: TextStyle(color: Colors.grey),
-                      labelText: 'name:',
-                      prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(50.0),
+              child: SizedBox(
+                //height: 250,
+                child: Column(
+                  children: [
+                    TextFormField(
+                      autofocus: true,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      //controller: nameController,
+                      initialValue: data['name'],  //name,
+                      autocorrect: true,
+                      keyboardType: TextInputType.name,
+                      enableSuggestions: true,
+                      enableInteractiveSelection: true,
+                      cursorColor: Colors.black,
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        //labelStyle: ,
+                        //hintStyle: ,
+                        labelStyle: TextStyle(color: Colors.grey),
+                        labelText: 'name:',
+                        prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+                          borderRadius: BorderRadius.all(
+                            const Radius.circular(50.0),
+                          ),
                         ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(50.0),
-                        ),
-                      ),            
-                  ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black, width: 2.0),
+                          borderRadius: BorderRadius.all(
+                            const Radius.circular(50.0),
+                          ),
+                        ),            
+                    ),
             onSaved: (value) {
-              name = value!;
+                name = value!;
             },
             onChanged: (value) {
-              name = value;
+                name = value;
             },
             validator: (value) {
              if(value!.isEmpty) {
-              return 'Input name';
+                return 'Input name';
              }
              return null;
             },
@@ -95,113 +97,114 @@ class _HomeScreenState extends State<HomeScreen> {
             cursorColor: Colors.black,
             style: TextStyle(color: Colors.black),
             decoration: InputDecoration(
-              //labelStyle: ,
-              //hintStyle: ,
-              labelStyle: TextStyle(color: Colors.grey),
-              labelText: 'phone:',
-              prefixIcon: Icon(Icons.call, color: Colors.black),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
-                borderRadius: BorderRadius.all(
-                  const Radius.circular(50.0),
+                //labelStyle: ,
+                //hintStyle: ,
+                labelStyle: TextStyle(color: Colors.grey),
+                labelText: 'phone:',
+                prefixIcon: Icon(Icons.call, color: Colors.black),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+                  borderRadius: BorderRadius.all(
+                    const Radius.circular(50.0),
+                  ),
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black, width: 2.0),
-                borderRadius: BorderRadius.all(
-                  const Radius.circular(50.0),
-                ),
-              ),           
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderRadius: BorderRadius.all(
+                    const Radius.circular(50.0),
+                  ),
+                ),           
             ),
             onSaved: (value) {
-              number = value!;
+                number = value!;
             },
             onChanged: (value) {
-              number = value;
+                number = value;
             },
             validator: (value) {
-              final phoneRegEx = RegExp(r'[@#<>?:_`;[\]\\|=+)(*&^%0-9-]');
-              if(value!.isEmpty) {
-                return "Input contact";
-              } 
-              else if(!phoneRegEx.hasMatch(value)) {
-                return 'Invalid contact';
-              }
-              return null;
+                final phoneRegEx = RegExp(r'[@#<>?:_`;[\]\\|=+)(*&^%0-9-]');
+                if(value!.isEmpty) {
+                  return "Input contact";
+                } 
+                else if(!phoneRegEx.hasMatch(value)) {
+                  return 'Invalid contact';
+                }
+                return null;
             },
           ),
           SizedBox(
-            height: 25
+            height: 20 //20
           ),
           SizedBox(
-            height: 50,  //50
+            height: 40,  //50
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                //Accessing Form through "_formKey"
-                if(_formKey.currentState!.validate()) {               
-                  _formKey.currentState!.save();
-                  if(isUpdate) {
-                    final db = FirebaseFirestore.instance;
-                    db.collection('contacts').doc(data.id).update({'name' : name, 'number': number}).whenComplete(() => print("$name and $number has been successfully updated in database"));
-                    Get.snackbar(
-                      "Contact Updated!", 
-                      "The contact ${name} has been succesfully updated and saved!",
-                      titleText: Text("Contact Updated!", style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.black),),
-                      messageText: Text("The contact ${name} has been succesfully updated and saved!", style: GoogleFonts.comfortaa(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),),
-                      duration: Duration(seconds: 3), 
-                      isDismissible: true, 
-                      colorText: Colors.black, 
-                      borderRadius: 10,
-                      dismissDirection: DismissDirection.down,
-                      icon: Icon(Icons.account_circle_outlined, color: Colors.tealAccent),
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.white,
-                    );
+                onPressed: () {
+                  //Accessing Form through "_formKey"
+                  if(_formKey.currentState!.validate()) {               
+                    _formKey.currentState!.save();
+                    if(isUpdate) {
+                      final db = FirebaseFirestore.instance;
+                      db.collection('contacts').doc(data.id).update({'name' : name, 'number': number}).whenComplete(() => print("$name and $number has been successfully updated in database"));
+                      Get.snackbar(
+                        "Contact Updated!", 
+                        "The contact ${name} has been succesfully updated and saved!",
+                        titleText: Text("Contact Updated!", style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.black),),
+                        messageText: Text("The contact ${name} has been succesfully updated and saved!", style: GoogleFonts.comfortaa(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),),
+                        duration: Duration(seconds: 3), 
+                        isDismissible: true, 
+                        colorText: Colors.black, 
+                        borderRadius: 10,
+                        dismissDirection: DismissDirection.down,
+                        icon: Icon(Icons.account_circle_outlined, color: Colors.tealAccent),
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.white,
+                      );
+                    }
+                    else {
+                      firebaseCreateContact();
+                      Get.snackbar(
+                        "Contact Created!", 
+                        "The contact ${name} has been succesfully createed and saved!",
+                        titleText: Text("Contact Created!", style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.black),),
+                        messageText: Text("The contact ${name} has been succesfully created and saved!", style: GoogleFonts.comfortaa(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),),
+                        duration: Duration(seconds: 3), 
+                        isDismissible: true, 
+                        colorText: Colors.black, 
+                        borderRadius: 10,
+                        dismissDirection: DismissDirection.down,
+                        icon: Icon(Icons.account_circle_outlined, color: Colors.tealAccent),
+                        snackPosition: SnackPosition.BOTTOM,
+                        backgroundColor: Colors.white,
+                      );
+                      print('${name }+ '' + ${number}');
+                    }
+                    Navigator.of(context).pop();
                   }
-                  else {
-                    firebaseCreateContact();
-                    Get.snackbar(
-                      "Contact Created!", 
-                      "The contact ${name} has been succesfully createed and saved!",
-                      titleText: Text("Contact Created!", style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.black),),
-                      messageText: Text("The contact ${name} has been succesfully created and saved!", style: GoogleFonts.comfortaa(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),),
-                      duration: Duration(seconds: 3), 
-                      isDismissible: true, 
-                      colorText: Colors.black, 
-                      borderRadius: 10,
-                      dismissDirection: DismissDirection.down,
-                      icon: Icon(Icons.account_circle_outlined, color: Colors.tealAccent),
-                      snackPosition: SnackPosition.BOTTOM,
-                      backgroundColor: Colors.white,
-                    );
-                    print('${name }+ '' + ${number}');
-                  }
-                  Navigator.of(context).pop();
-                }
-              }, 
-              child: Text('Save Contact', style: GoogleFonts.comfortaa(fontSize: 20, color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                //shadowColor: Colors.white,
-                foregroundColor: Colors.tealAccent, 
-                backgroundColor: Colors.tealAccent,
-                elevation: 2,
-                //surfaceTintColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  //side: BorderSide(
-                    //color: Colors.black,
-                    //style: BorderStyle.solid
-                  //)
-                )
-              ),
+                }, 
+                child: Text('Save Contact', style: GoogleFonts.comfortaa(fontSize: 17, color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  //shadowColor: Colors.white,
+                  foregroundColor: Colors.tealAccent, 
+                  backgroundColor: Colors.tealAccent,
+                  elevation: 2,
+                  //surfaceTintColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    //side: BorderSide(
+                      //color: Colors.black,
+                      //style: BorderStyle.solid
+                    //)
+                  )
+                ),
             ),
           ),
-          //SizedBox(
-            //height: 10
-          //),
+          SizedBox(
+            height: 5
+          ),
         ]
-      )
+      ),
+              )
     ),
             contentPadding: EdgeInsets.all(10),
             radius: 20,
@@ -217,47 +220,48 @@ class _HomeScreenState extends State<HomeScreen> {
             backgroundColor: Colors.white,
             content: Form(
               key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    autofocus: true,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
-                    //controller: nameController,
-                    //initialValue: name
-                    autocorrect: true,
-                    keyboardType: TextInputType.name,
-                    enableSuggestions: true,
-                    enableInteractiveSelection: true,
-                    cursorColor: Colors.black,
-                    style: TextStyle(color: Colors.black),
-                    decoration: InputDecoration(
-                      //labelStyle: ,
-                      //hintStyle: ,
-                      labelStyle: TextStyle(color: Colors.grey),
-                      labelText: 'name:',
-                      prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(50.0),
+              child: SizedBox(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      autofocus: true,
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      //controller: nameController,
+                      //initialValue: name
+                      autocorrect: true,
+                      keyboardType: TextInputType.name,
+                      enableSuggestions: true,
+                      enableInteractiveSelection: true,
+                      cursorColor: Colors.black,
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        //labelStyle: ,
+                        //hintStyle: ,
+                        labelStyle: TextStyle(color: Colors.grey),
+                        labelText: 'name:',
+                        prefixIcon: Icon(Icons.account_circle_outlined, color: Colors.black),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+                          borderRadius: BorderRadius.all(
+                            const Radius.circular(50.0),
+                          ),
                         ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.black, width: 2.0),
+                          borderRadius: BorderRadius.all(
+                            const Radius.circular(50.0),
+                          ),
+                        ),           
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black, width: 2.0),
-                        borderRadius: BorderRadius.all(
-                          const Radius.circular(50.0),
-                        ),
-                      ),           
-                    ),
             onSaved: (value) {
-              name = value!;
+                name = value!;
             },
             onChanged: (value) {
-              name = value;
+                name = value;
             },
             validator: (value) {
              if(value!.isEmpty) {
-              return 'Input name';
+                return 'Input name';
              }
              return null;
             },
@@ -277,93 +281,94 @@ class _HomeScreenState extends State<HomeScreen> {
             cursorColor: Colors.black,
             style: TextStyle(color: Colors.black),
             decoration: InputDecoration(
-              //labelStyle: ,
-              //hintStyle: ,
-              labelStyle: TextStyle(color: Colors.grey),
-              labelText: 'phone:',
-              prefixIcon: Icon(Icons.call, color: Colors.black),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
-                borderRadius: BorderRadius.all(
-                  const Radius.circular(50.0),
+                //labelStyle: ,
+                //hintStyle: ,
+                labelStyle: TextStyle(color: Colors.grey),
+                labelText: 'phone:',
+                prefixIcon: Icon(Icons.call, color: Colors.black),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.tealAccent, width: 2.0),
+                  borderRadius: BorderRadius.all(
+                    const Radius.circular(50.0),
+                  ),
                 ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.black, width: 2.0),
-                borderRadius: BorderRadius.all(
-                  const Radius.circular(50.0),
-                ),
-              ),           
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 2.0),
+                  borderRadius: BorderRadius.all(
+                    const Radius.circular(50.0),
+                  ),
+                ),           
             ),
             onSaved: (value) {
-              number = value!;
+                number = value!;
             },
             onChanged: (value) {
-              number = value;
+                number = value;
             },
             validator: (value) {
-              final phoneRegEx = RegExp(r'[@#<>?:_`;[\]\\|=+)(*&^%0-9-]');
-              if(value!.isEmpty) {
-                return "Input contact";
-              } 
-              else if(!phoneRegEx.hasMatch(value)) {
-                return 'Invalid contact';
-              }
-              return null;
+                final phoneRegEx = RegExp(r'[@#<>?:_`;[\]\\|=+)(*&^%0-9-]');
+                if(value!.isEmpty) {
+                  return "Input contact";
+                } 
+                else if(!phoneRegEx.hasMatch(value)) {
+                  return 'Invalid contact';
+                }
+                return null;
             },
           ),
           SizedBox(
-            height: 25
+            height: 20
           ),
           SizedBox(
-            height: 50,  //50
+            height: 40,  //50
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: () {
-                //Accessing Form through "_formKey"
-                if(_formKey.currentState!.validate()) {               
-                  _formKey.currentState!.save();
-                  firebaseCreateContact();
-                  Get.snackbar(
-                    "Contact Created!", 
-                    "The contact ${name} has been succesfully created and saved!",
-                    titleText: Text("Contact Created!", style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.black),),
-                    messageText: Text("The contact ${name} has been succesfully created and saved!", style: GoogleFonts.comfortaa(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),),
-                    duration: Duration(seconds: 3), 
-                    isDismissible: true, 
-                    colorText: Colors.black, 
-                    borderRadius: 10,
-                    dismissDirection: DismissDirection.down,
-                    icon: Icon(Icons.account_circle_outlined, color: Colors.tealAccent),
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.white,
-                  );
-                  print('${name }+ '' + ${number}');
-                }
-                //Navigator.of(context).pop();
-              }, 
-              child: Text('Save Contact', style: GoogleFonts.comfortaa(fontSize: 20, color: Colors.white)),
-              style: ElevatedButton.styleFrom(
-                //shadowColor: Colors.white,
-                foregroundColor: Colors.tealAccent, 
-                backgroundColor: Colors.tealAccent,
-                elevation: 2,
-                //surfaceTintColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  //side: BorderSide(
-                    //color: Colors.black,
-                    //style: BorderStyle.solid
-                  //)
-                )
-              ),
+                onPressed: () {
+                  //Accessing Form through "_formKey"
+                  if(_formKey.currentState!.validate()) {               
+                    _formKey.currentState!.save();
+                    firebaseCreateContact();
+                    Get.snackbar(
+                      "Contact Created!", 
+                      "The contact ${name} has been succesfully created and saved!",
+                      titleText: Text("Contact Created!", style: GoogleFonts.comfortaa(fontSize: 16, fontWeight: FontWeight.w900, color: Colors.black),),
+                      messageText: Text("The contact ${name} has been succesfully created and saved!", style: GoogleFonts.comfortaa(fontSize: 13, fontWeight: FontWeight.w600, color: Colors.black),),
+                      duration: Duration(seconds: 3), 
+                      isDismissible: true, 
+                      colorText: Colors.black, 
+                      borderRadius: 10,
+                      dismissDirection: DismissDirection.down,
+                      icon: Icon(Icons.account_circle_outlined, color: Colors.tealAccent),
+                      snackPosition: SnackPosition.BOTTOM,
+                      backgroundColor: Colors.white,
+                    );
+                    print('${name }+ '' + ${number}');
+                  }
+                  //Navigator.of(context).pop();
+                }, 
+                child: Text('Save Contact', style: GoogleFonts.comfortaa(fontSize: 17, color: Colors.white)),
+                style: ElevatedButton.styleFrom(
+                  //shadowColor: Colors.white,
+                  foregroundColor: Colors.tealAccent, 
+                  backgroundColor: Colors.tealAccent,
+                  elevation: 2,
+                  //surfaceTintColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                    //side: BorderSide(
+                      //color: Colors.black,
+                      //style: BorderStyle.solid
+                    //)
+                  )
+                ),
             ),
           ),
-          //SizedBox(
-            //height: 50
-          //),
+          SizedBox(
+            height: 5
+          ),
         ]
-      )
+      ),
+              )
     ),
             contentPadding: EdgeInsets.all(10),
             radius: 20,
